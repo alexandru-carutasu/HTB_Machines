@@ -1,0 +1,10 @@
+As i have gotten used to it , the whole thing starts with a nmap scan that reveals a http port open.
+Right away i wetn to the website and did a crawl to find the login .  adirectory showed up , where i could find a swap file.
+Using 'strings' i found inside that swap file the usage of a strcmp function. My initial approach was a timing attack ( a well known way to exploit strcmp ) . Didn't work , not sure if it would have worked in the end , but i didn't spend enough time on it . I stopped because  saw the usage of "==" instead of "===" inside the strcmp function . RIght then i knew that using another type of variable would amount to something . In the end the usage of an empty array in the parameter section worked using burp suite proxy.
+I was in ! Once a file upload section appeared i knew what i had to do . I uploaded a php script for remote shell and with a nc listener i had access to the shell . From that point on it was a question of only using the right escalation technique to get root access.
+
+
+
+Using GTFObins i found "find . -exec /bin/bash \; -quit" which allowed be to get root access. I search for the find command bc the initial user that i was logged in as had the find command with root priviliges(sudo -l)
+
+
