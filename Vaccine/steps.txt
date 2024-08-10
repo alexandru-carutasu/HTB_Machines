@@ -5,14 +5,11 @@ is discovered in the search input . Using this you can open --os-shell .The foll
 -lvnp PORT) on the local machine will allow us access to a reverse shell.  
 
 
+ python3 -c 'import pty;pty.spawn("bin/bash")' is used to spawn a interactive shell session. (upgrades the the basic reverse shell)
 
-
-
-
-
-
-
-
+(final step)Privilage escalation: linPEAS is an automated system enumeration tool .It is rarely a good idea to allow a system user to run a binary with elevated privileges, as the default binaries
+on Linux often contain parameters that can be used to run system commands. A good list of these binaries
+can be found in the GTFOBins website.(For windows systems, the equivalent of this is the LOLBAS)
 
 
 Observations : Reverse shells can randomly die( Suggestion : Do not rely on them!)
