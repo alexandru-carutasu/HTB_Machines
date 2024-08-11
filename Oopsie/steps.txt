@@ -1,0 +1,9 @@
+Nothing interesting abut this machine up until the access of the upload page where you can upload
+a php script for reverse shell . From that point on you search for any php files for credentials
+(find www -type f -name "*.php"). In db.php you find the credentials for rober user . When you search with sudo -l 
+you find that there are no commands that have root privileges . Instead using the 'id' you see that the robert user is part
+of a (bugtracker) group with the id 1001 .A file with SUID always executes as the user who owns the
+file, regardless of the user passing the command. If the file owner doesn't have
+execute permissions, then use an uppercase S here.
+In our case, the binary 'bugtracker' is owned by root & we can execute it as root since
+it has SUID set. My initial approach was to simply enter ../robot.txt to display the password in the bugtracker executable , it worked (TODO: talk about alternative approach)
