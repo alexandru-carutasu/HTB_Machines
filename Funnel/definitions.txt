@@ -1,0 +1,5 @@
+According to the definition of tunelling , one can use it to access resources that are available only to internal networks.
+The tunelling protocol works by using the data portion of a packet (the payload) to carry packets that actually provide the service.
+
+
+ss -tlpn = used to display detailed information  about TCP listening sockets.
