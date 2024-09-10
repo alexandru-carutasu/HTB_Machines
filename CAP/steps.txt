@@ -1,0 +1,5 @@
+After nmap scan , i see FTP and SSH services available , no vulnerabilites found here . I go straight to port 80 . A web app pops up where 
+i find PCAP captures . /data/{id} identifies each PCAP capture . Using fuzzing i find the capture with id 0 . In WireShark , i look through the packets and find ssh credentials . Inside the machine i escalte my privileges using linpeas.sh to automize the process .
+
+
+I get cap_setuid inside python3.8 , using that i spwan a shell with user id 0 .
