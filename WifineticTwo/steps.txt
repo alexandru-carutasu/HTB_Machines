@@ -1,0 +1,15 @@
+A Network oriented virtual machine
+
+
+
+
+
+Since we are already root , the next stage is to probably going towards another machine or exiting a container .
+
+cat /proc/1/environ contains the enviroment variables for the process with the PID 1 , which is typically 'init'
+(or 'systemd' in modern linux distributions)
+
+
+
+
+
