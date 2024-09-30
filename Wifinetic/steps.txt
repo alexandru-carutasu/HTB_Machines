@@ -1,0 +1,20 @@
+It all starts with a FTP anonymous login , that makes config files available . After logging in inside the machine , i see
+in ifconfig wlan0 and wlan1 as wireless interfaces . Only using iwconfig i confirm my suspicions that wlan0 is a AP .
+
+iwconfig ->
+wlan0 : is in master mode => AP
+
+wlan1 : client mode => WI-FI client 
+
+iw dev ->
+
+wlan0 : classified as AP and is associated with phy0(physical wireless device)
+
+Attempting to brute force the WPS PIN could lead to obtaing the actual Wi-Fi pass .
+
+checking if there are any pre installed tools  -> getcap -r / 2>/dev/null (if not we could bring some using a python http server)
+
+
+!!!! WPS PIN ATTACK : using reaver , but BBSID is needed ( basic service set identifier) .
+
+From iw dev output . -> reaver -i mon0 -b 02:00:00:00:00:00 -vv -c 1
