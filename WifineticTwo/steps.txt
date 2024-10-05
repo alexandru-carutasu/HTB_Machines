@@ -11,5 +11,57 @@ cat /proc/1/environ contains the enviroment variables for the process with the P
 
 
 
+Finding wlan0 interface , i inspect it with tools like iw or iwconfig and i see it is not associated with any AP.
+
+Using "iwlist scan" i look for AP , and i find one with the "plcrouter" name. I am not connected to it ("iw dev
+wlan0 link")
+
+Attacking the AP
+
+using iw wlan0 scan -->> i see WPS is enabled
+
+
+WPS is a considered a poor security practice due to its inherent vuln . It uses a 8 digit PIN , that is hardcoded,
+cand can be brute forced dur to its limited number of possible combinations. WPA2 encryption is undermined using a Pixie Dust attack .
+
+AP's have weak ways of generating nonces (known as E-S1 and E-S2) . If we are able to find the nonces we can easily find the WPS PIN of the AP since the AP must give it to us in a hash in order to prove that it also knows the PIN . (E-S1 , E-S2 ar essentially the "keys to unlock the lock box" containing the WPS pin)
+
+
+Using oneshot.py a utilitary included i find the password and i connect to router.Once connected i scan the router with nmap and find port 80 and port 22(this is the easier solution to get the root flag). But let's go more in depth with port 80.
+
+I use the following to connect to the router :
+
+-----
+
+root@attica02:/tmp# cat <<EOF > wpa.conf
+network={
+ssid="plcrouter"
+psk="NoWWEDoKnowWhaTisReal123!"
+}
+EOF
+
+root@attica02:/tmp# wpa_supplicant -B -i wlan0 -c wpa.conf
+
+-----
+
+After all , i find that currently there is no assigned IPv4 address , i solve with the following :
+
+
+-----
+root@attica02:/tmp# dhclient
+
+RTNETLINK answers: File exists
+
+------
+
+After all of this i connect using ssh on port 22 on 192.168.1.1(address found after arp -a) and i find the root flag (TODO: approach using port 80)
+
+
+
+
+
+
+
+
 
 
