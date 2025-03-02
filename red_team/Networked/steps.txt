@@ -1,0 +1,1 @@
+i need to find more about v env in python i need python3 -m venv myenv source myenv/bin/activate (requirements.txt -r)

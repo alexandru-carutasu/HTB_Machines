@@ -1,0 +1,21 @@
+In this Sherlock i am given a auth.log and a wtmp file top analyse a ssh brute force attack. 
+
+auth.log - in the context of logging into a host tracks specifically authentication events
+
+WTMP - record the creationa dn destruction of terminals , or the release or assignment of terminals to users .
+
+The first part of the challenge asks for the attacker ip and their succesfull logina attempt and when that happened . 
+
+2024-03-06 06:32:45
+
+65.2.161.68
+
+After all , i found something very interesting which i was not familiar with which is MITRE ATT&CK and the documentation given. 
+
+
+MITRE ATT&CK® is a globally-accessible knowledge base of adversary tactics and techniques based on real-world observations. The ATT&CK knowledge base is used as a foundation for the development of specific threat models and methodologies in the private sector, in government, 
+and in the cybersecurity product and service community
+
+A interesting start in the world of the blue team.
+
+
